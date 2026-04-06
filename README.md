@@ -9,7 +9,7 @@
 5. 클로드 로그인 후 연동 완료
 
 >플러그인
-`npm install -g @ryoppippi/ccusage` : CLI에서 일별/월별/실시간 토큰 사용량 확인 가능한 플러그인
+1. `npm install -g @ryoppippi/ccusage` : CLI에서 일별/월별/실시간 토큰 사용량 확인 가능한 플러그인
 
 >유용한 명령어 + 팁
 
