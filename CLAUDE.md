@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Rules
 * 반드시 한국어로 대답할 것 (Korean)
 * 새로운 기능 구현시 함부로 추론하지말고 프로젝트 내에서 필요한 정보 또는 기획 내용이 필요할시 요청할 것
+* 이미 읽은 파일은 다시 확인하지 않는다
+* 사용자가 이미 설명한 내용을 다시 반복하지 않는다
 
 ## Project Overview
 - [프로젝트에 대한 설명과 사용중인 기술 스택 명시]
@@ -58,7 +60,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### 주요 패키지
 
 | 패키지 | 버전 | 용도 |
-|---|---|---|
 | `com.unity.nuget.newtonsoft-json` | 3.2.1 | 엑셀 데이터를 Json으로 파싱하기 위한 라이브러리 |
 | `com.unity.Spine` | 4.1 | 스파인 |
 
@@ -76,13 +77,8 @@ Unity Editor에서 직접 플레이 버튼으로 실행하며, CLI 빌드가 필
   -logFile build.log
 ```
 
-테스트는 Unity Test Runner(Window > General > Test Runner)에서 실행하거나 CLI로 실행한다:
 
-```bash
-"C:/Program Files/Unity/Hub/Editor/6000.1.17f1/Editor/Unity.exe" \
-  -batchmode -quit \
-  -projectPath "C:/Users/equat/Desktop/Unity/UnityMCP" \
-  -runTests -testPlatform EditMode \
-  -testResults results.xml \
-  -logFile test.log
-```
+## Common Mistakes and Solution
+반복 실수 방지를 위해 프로젝트 내에서 사용하는 코드는 아래 내용을 준수하도록 한다.
+- Extension.cs 파일내에 정의된 함수들은 Extension.Func() 형식으로 호출하지 않는다 -> 매개변수에 this 키워드를 넣어서 gameObject.GetOrAddComponent() 형식으로 사용하게 한다
+- 프리팹 수정 권한이 필요할시 요청한다.
