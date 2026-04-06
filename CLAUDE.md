@@ -3,7 +3,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Rules
 * 반드시 한국어로 대답할 것 (Korean)
-* 필요한 정보가 있으면 요청할 것
+* 새로운 기능 구현시 함부로 추론하지말고 프로젝트 내에서 필요한 정보 또는 기획 내용이 필요할시 요청할 것
 
 ## Project Overview
 - [프로젝트에 대한 설명과 사용중인 기술 스택 명시]
@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Coding Rules
 
-- C# 선호
+- Unity + C# 선호
 - `private` / `protected` 멤버 변수: `_[변수명]` 형식 (예: `_instance`, `_managers`)
 - 클래스 / 구조체: Pascal 표기법 (예: `Managers`, `IManager`)
 - 지역 변수 / 함수 파라미터: Camel 표기법 (예: `manager`, `existing`)
@@ -23,6 +23,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 클래스 설계는 다음과 같은 순서로 작성한다(1. 변수는 public -> protected -> private 순서로 변수를 선언, 2. 프로퍼티는 1.이랑 동일하지만 변수와 바로 대응이 되는 프로퍼티에 경우 변수 바로 밑에 선언
   3. 함수는 public -> protected -> private 순서로 작성하고 virtual이나 abstract 함수는 가장 상단에 적는다)
 - 비슷한 기능끼리 뭉쳐있는 경우 #region #endregion을 사용하여 그룹을 짓는다
+- 비동기 작업이 처리될 경우 함수 이름 끝 부분에 Async를 붙여야한다 (예: LoadAsync() )
+- 대부분에 클래스에서 사용할 가능성이 있는 기능들은 제네릭을 사용하여 Util.cs, Extension.cs 파일에 함수를 정의한다.
 
 ## Architecture
 이 프로젝트에서는 아래와 같은 패키지가 포함되어 있어야 한다
@@ -46,7 +48,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]`로 씬 로드 전에 자동 부트스트랩된다.
 - 모든 매니저는 `IManager` 인터페이스(`Initialize()` / `Release()`)를 구현해야 한다.
-- `Managers.Add<T>()` — 새 매니저를 생성하고 등록
+- `IManager` 인터페이스를 상속받은 매니저급 클래스들은 Managers에 static 인스턴스를 정의하고 Get<T>을 호출한다
+- `Bootstrap()` 함수내에서 `Managers.Add<T>()` 함수를 호출해 새로운 매니저급 클래스들을 생성하고 등록한다
 - `Managers.Register<T>(instance)` — 외부에서 생성된 매니저를 등록
 - `Managers.Get<T>()` / `Managers.TryGet<T>()` — 등록된 매니저 조회
 - `Managers.Remove<T>()` — 특정 매니저 해제
@@ -56,12 +59,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | 패키지 | 버전 | 용도 |
 |---|---|---|
-| `com.unity.render-pipelines.universal` | 17.1.0 | URP 2D 렌더러 |
-| `com.unity.inputsystem` | 1.14.0 | 새 입력 시스템 |
-| `com.unity.2d.animation` | 11.0.0 | 2D 애니메이션 |
-| `com.unity.2d.tilemap` | 1.0.0 | 타일맵 |
-| `com.unity.test-framework` | 1.5.1 | 유닛 테스트 |
-| `com.unity.timeline` | 1.8.7 | 타임라인 |
+| `com.unity.nuget.newtonsoft-json` | 3.2.1 | 엑셀 데이터를 Json으로 파싱하기 위한 라이브러리 |
+| `com.unity.Spine` | 4.1 | 스파인 |
 
 ## Development
 
