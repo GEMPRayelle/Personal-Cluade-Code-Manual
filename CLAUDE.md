@@ -63,6 +63,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `com.unity.nuget.newtonsoft-json` | 3.2.1 | 엑셀 데이터를 Json으로 파싱하기 위한 라이브러리 |
 | `com.unity.Spine` | 4.1 | 스파인 |
 
+## Skills
+모든 에이전트 Skill 관련 md 파일은 `Assets/@Docs/` 하위에 역할별로 분류된다:
+- Excel에서 Json으로 데이터 파싱 관련 작업이 필요할시 @Docs/data-guide.md를 읽어라
+
 ## Development
 
 Unity Editor에서 직접 플레이 버튼으로 실행하며, CLI 빌드가 필요한 경우 아래 명령을 사용한다:
